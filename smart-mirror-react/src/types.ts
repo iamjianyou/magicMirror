@@ -1,0 +1,101 @@
+// Region names mirror MagicMirror²'s layout regions.
+export type Position =
+  | "top_bar"
+  | "top_left"
+  | "top_center"
+  | "top_right"
+  | "upper_third"
+  | "middle_center"
+  | "lower_third"
+  | "bottom_left"
+  | "bottom_center"
+  | "bottom_right"
+  | "bottom_bar"
+  | "fullscreen_above"
+  | "fullscreen_below";
+
+export type ModuleName =
+  | "clock"
+  | "compliments"
+  | "weather"
+  | "newsfeed"
+  | "MMM-BackgroundSlideshow";
+
+export interface ModuleDefinition {
+  module: ModuleName;
+  position: Position;
+  /** Optional header rendered above the module, like MagicMirror²'s module header. */
+  header?: string;
+  config?: Record<string, unknown>;
+}
+
+export interface AppConfig {
+  /** Global locale used unless a module overrides it with its own `lang`. */
+  language: string;
+  locale: string;
+  timeFormat: 12 | 24;
+  units: "metric" | "imperial";
+  logLevel: string[];
+  modules: ModuleDefinition[];
+}
+
+// ---- Per-module config shapes ----
+
+export interface ClockConfig {
+  timeFormat?: 12 | 24;
+  displaySeconds?: boolean;
+  showPeriod?: boolean;
+  showDate?: boolean;
+  showTime?: boolean;
+  showWeek?: boolean;
+  dateFormat?: string;
+  /** Override moment locale for this instance (e.g. "zh-cn"); undefined uses global language. */
+  lang?: string;
+  /** IANA timezone (e.g. "Asia/Shanghai"); undefined uses local time. */
+  timezone?: string;
+  /** Append the Chinese lunar calendar date below the Gregorian date. */
+  showLunarDate?: boolean;
+}
+
+export interface WeatherConfig {
+  type: "current" | "forecast";
+  lat: number;
+  lon: number;
+  locationName?: string;
+  units?: "metric" | "imperial";
+  /** Per-instance language override; undefined uses global language. */
+  lang?: string;
+  updateInterval?: number;
+  /** Number of forecast days for type "forecast". */
+  maxNumberOfDays?: number;
+  /** Fade the later forecast rows toward transparent (MagicMirror² default: true). */
+  fade?: boolean;
+  /** Fraction of the list before fading begins (MagicMirror² default: 0.25). */
+  fadePoint?: number;
+}
+
+export interface ComplimentsConfig {
+  updateInterval?: number;
+  fadeSpeed?: number;
+  compliments?: Record<string, string[]>;
+}
+
+export interface NewsFeedConfig {
+  feeds: { title: string; url: string }[];
+  showSourceTitle?: boolean;
+  showPublishDate?: boolean;
+  updateInterval?: number;
+  /** How long each headline is shown (ms). */
+  rotateInterval?: number;
+}
+
+export interface BackgroundSlideshowConfig {
+  slideshowSpeed?: number;
+  transitionSpeed?: string;
+  randomizeImageOrder?: boolean;
+  backgroundSize?: string;
+  /** Vertical gradient stops layered over the image. */
+  gradient?: string[];
+  /** Horizontal gradient stops layered over the image. */
+  horizontalGradient?: string[];
+}
