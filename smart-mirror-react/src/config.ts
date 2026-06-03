@@ -11,6 +11,19 @@ const config: AppConfig = {
   logLevel: ["INFO", "LOG", "WARN", "ERROR"],
 
   modules: [
+    // ===== World Cup countdown =====
+    {
+      module: "countdown",
+      position: "bottom_left",
+      config: {
+        // FIFA World Cup 2026 opening match — Mexico v South Africa, Estadio
+        // Azteca, Mexico City. Kickoff 13:00 local (UTC-6); matches fifa.com.
+        targetDate: "2026-06-11T13:00:00-06:00",
+        title: "FIFA World Cup 2026 ⚽",
+        displaySeconds: true
+      }
+    },
+
     // ===== LEFT: Norway =====
     {
       module: "clock",

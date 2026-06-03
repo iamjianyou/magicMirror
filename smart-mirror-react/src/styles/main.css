@@ -215,6 +215,131 @@ header {
   margin-top: 2px;
 }
 
+/* ---- Countdown (split-flap clock) ---- */
+.countdown {
+  /* Card geometry — tweak --flip-w / --flip-h / --flip-font to resize. */
+  --flip-w: 34px;
+  --flip-h: 48px;
+  --flip-font: 38px;
+  --flip-bg: #141414;
+  --flip-color: #f4e6e6;
+  text-align: left;
+}
+.countdown-title {
+  margin-bottom: 8px;
+}
+.flip-clock {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.flip-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* The two digit cards of one unit. */
+.flip-unit {
+  display: flex;
+  gap: 3px;
+}
+/* A single flip card; perspective makes the flap rotation look 3D. */
+.flip-card {
+  position: relative;
+  display: inline-block;
+  width: var(--flip-w);
+  height: var(--flip-h);
+  font-size: var(--flip-font);
+  font-weight: 600;
+  perspective: 320px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+/* Static + animated halves share the same look; each clips one half of a digit. */
+.flip-half,
+.flip-anim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background: var(--flip-bg);
+  color: var(--flip-color);
+  backface-visibility: hidden;
+}
+.flip-half.top,
+.flip-anim.top {
+  top: 0;
+  align-items: flex-start;
+  border-radius: 8px 8px 0 0;
+  /* The seam where the card folds. */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+.flip-half.bottom,
+.flip-anim.bottom {
+  bottom: 0;
+  align-items: flex-end;
+  border-radius: 0 0 8px 8px;
+}
+/* The digit spans the full card height so each half reveals one slice of it. */
+.flip-num {
+  height: var(--flip-h);
+  line-height: var(--flip-h);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.flip-half {
+  z-index: 1;
+}
+/* Old top folds down and away; new bottom folds in over the old bottom. */
+.flip-anim {
+  z-index: 2;
+}
+.flip-anim.top {
+  transform-origin: bottom;
+  animation: flip-top 0.3s ease-in forwards;
+}
+.flip-anim.bottom {
+  transform-origin: top;
+  animation: flip-bottom 0.3s ease-out 0.3s both;
+}
+@keyframes flip-top {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-90deg);
+  }
+}
+@keyframes flip-bottom {
+  from {
+    transform: rotateX(90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+.flip-label {
+  margin-top: 6px;
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+  color: #cfc9cb95;
+}
+/* Colon between unit groups, vertically centered against the cards. */
+.flip-sep {
+  display: flex;
+  align-items: center;
+  height: var(--flip-h);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgba(244, 230, 230, 0.5);
+}
+.countdown-finished {
+  font-weight: 300;
+}
+
 /* ---- Compliments ---- */
 .compliments {
   max-width: 80vw;

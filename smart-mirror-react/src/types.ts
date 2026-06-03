@@ -16,6 +16,7 @@ export type Position =
 
 export type ModuleName =
   | "clock"
+  | "countdown"
   | "compliments"
   | "weather"
   | "newsfeed"
@@ -55,6 +56,17 @@ export interface ClockConfig {
   timezone?: string;
   /** Append the Chinese lunar calendar date below the Gregorian date. */
   showLunarDate?: boolean;
+}
+
+export interface CountdownConfig {
+  /** ISO 8601 target date/time, e.g. "2026-06-11T20:00:00-06:00". */
+  targetDate?: string;
+  /** Label shown above the countdown. */
+  title?: string;
+  /** Include the seconds unit (ticks every second when true). */
+  displaySeconds?: boolean;
+  /** Text shown once the target date has passed. */
+  finishedText?: string;
 }
 
 export interface WeatherConfig {

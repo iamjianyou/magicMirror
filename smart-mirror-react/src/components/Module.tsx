@@ -1,6 +1,7 @@
 import type { ModuleDefinition } from "../types";
 import config from "../config";
 import Clock from "../modules/Clock";
+import Countdown from "../modules/Countdown";
 import Compliments from "../modules/Compliments";
 import Weather from "../modules/Weather";
 import NewsFeed from "../modules/NewsFeed";
@@ -8,6 +9,7 @@ import BackgroundSlideshow from "../modules/BackgroundSlideshow";
 import type {
   BackgroundSlideshowConfig,
   ClockConfig,
+  CountdownConfig,
   ComplimentsConfig,
   NewsFeedConfig,
   WeatherConfig
@@ -37,6 +39,8 @@ function renderModule(definition: ModuleDefinition) {
       return (
         <Clock config={cfg as unknown as ClockConfig} language={config.language} timeFormat={config.timeFormat} />
       );
+    case "countdown":
+      return <Countdown config={cfg as unknown as CountdownConfig} />;
     case "weather":
       return (
         <Weather config={cfg as unknown as WeatherConfig} language={config.language} units={config.units} />
