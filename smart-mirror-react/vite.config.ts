@@ -14,12 +14,32 @@ export default defineConfig({
     port: 3000,
     host: true,
     proxy: {
-      // Browsers block cross-origin RSS fetches; the newsfeed module hits this
-      // path and Vite forwards it to the New York Times RSS host.
+      // Browsers block cross-origin RSS fetches; the newsfeed module hits these
+      // paths and Vite forwards them to each publisher's RSS host.
       "/feed-nyt": {
         target: "https://rss.nytimes.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/feed-nyt/, "")
+      },
+      "/feed-nrk": {
+        target: "https://www.nrk.no",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/feed-nrk/, "")
+      },
+      "/feed-aftenposten": {
+        target: "https://www.aftenposten.no",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/feed-aftenposten/, "")
+      },
+      "/feed-bbc-zh": {
+        target: "https://feeds.bbci.co.uk",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/feed-bbc-zh/, "")
+      },
+      "/feed-klartale": {
+        target: "https://www.klartale.no",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/feed-klartale/, "")
       }
     }
   }

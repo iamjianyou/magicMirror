@@ -20,8 +20,8 @@ const config: AppConfig = {
         // Azteca, Mexico City. Kickoff 13:00 local (UTC-6); matches fifa.com.
         targetDate: "2026-06-11T13:00:00-06:00",
         title: "FIFA World Cup 2026 ⚽",
-        displaySeconds: true
-      }
+        displaySeconds: true,
+      },
     },
 
     // ===== LEFT: Norway =====
@@ -30,8 +30,8 @@ const config: AppConfig = {
       position: "top_left",
       config: {
         lang: "nb",
-        dateFormat: "dddd D. MMMM YYYY"
-      }
+        dateFormat: "dddd D. MMMM YYYY",
+      },
     },
     {
       module: "weather",
@@ -40,8 +40,8 @@ const config: AppConfig = {
         type: "current",
         lang: "nb",
         lat: 60.3553,
-        lon: 5.2178
-      }
+        lon: 5.2178,
+      },
     },
     {
       module: "weather",
@@ -52,8 +52,8 @@ const config: AppConfig = {
         lang: "nb",
         maxNumberOfDays: 14,
         lat: 60.3553,
-        lon: 5.2178
-      }
+        lon: 5.2178,
+      },
     },
 
     // ===== RIGHT: China =====
@@ -65,8 +65,8 @@ const config: AppConfig = {
         lang: "zh-cn",
         showLunarDate: true,
         displaySeconds: true,
-        dateFormat: "YYYY年M月D日 dddd"
-      }
+        dateFormat: "YYYY年M月D日 dddd",
+      },
     },
     {
       module: "weather",
@@ -75,8 +75,8 @@ const config: AppConfig = {
         type: "current",
         lang: "zh-cn",
         lat: 28.0387,
-        lon: 120.7914
-      }
+        lon: 120.7914,
+      },
     },
     {
       module: "weather",
@@ -87,8 +87,8 @@ const config: AppConfig = {
         lang: "zh-cn",
         maxNumberOfDays: 14,
         lat: 28.0387,
-        lon: 120.7914
-      }
+        lon: 120.7914,
+      },
     },
 
     // ===== Background photo slideshow =====
@@ -104,15 +104,15 @@ const config: AppConfig = {
           "rgba(0, 0, 0, 0.75) 0%",
           "rgba(0, 0, 0, 0) 40%",
           "rgba(0, 0, 0, 0) 60%",
-          "rgba(0, 0, 0, 0.75) 100%"
+          "rgba(0, 0, 0, 0.75) 100%",
         ],
         horizontalGradient: [
           "rgba(0, 0, 0, 0.75) 0%",
           "rgba(0, 0, 0, 0) 25%",
           "rgba(0, 0, 0, 0) 75%",
-          "rgba(0, 0, 0, 0.75) 100%"
-        ]
-      }
+          "rgba(0, 0, 0, 0.75) 100%",
+        ],
+      },
     },
 
     // ===== Compliments =====
@@ -124,12 +124,16 @@ const config: AppConfig = {
         fadeSpeed: 4000,
         compliments: {
           anytime: ["Hey there!"],
-          morning: ["Good morning, handsome!", "Enjoy your day!", "How was your sleep?"],
+          morning: [
+            "Good morning, handsome!",
+            "Enjoy your day!",
+            "How was your sleep?",
+          ],
           afternoon: ["Hello, beauty!", "Looking good today!"],
           evening: ["Wow, you look great!", "You look nice!", "Hi, there!"],
-          "....-01-01": ["Happy new year!"]
-        }
-      }
+          "....-01-01": ["Happy new year!"],
+        },
+      },
     },
 
     // ===== News feed =====
@@ -137,20 +141,39 @@ const config: AppConfig = {
       module: "newsfeed",
       position: "bottom_bar",
       config: {
-        // The URL is proxied through Vite (see vite.config.ts) to dodge browser
-        // CORS — it maps to https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+        // URLs are proxied through Vite (see vite.config.ts) to dodge browser
+        // CORS. They map to:
+        //   /feed-nrk/toppsaker.rss        -> https://www.nrk.no/toppsaker.rss
+        //   /feed-aftenposten/rss          -> https://www.aftenposten.no/rss
+        //   /feed-bbc-zh/.../trad/rss.xml  -> https://feeds.bbci.co.uk/zhongwen/trad/rss.xml
+        //   (BBC's /simp/ feed 301-redirects to /trad/, so we target /trad/ directly.)
         feeds: [
+          // {
+          //   title: "NRK",
+          //   url: "/feed-nrk/toppsaker.rss",
+          // },
+          // {
+          //   title: "Aftenposten",
+          //   url: "/feed-aftenposten/rss",
+          // },
+          // {
+          //   title: "BBC 中文",
+          //   url: "/feed-bbc-zh/zhongwen/trad/rss.xml",
+          // },
           {
-            title: "New York Times",
-            url: "/feed-nyt/services/xml/rss/nyt/HomePage.xml"
-          }
+            // Klar Tale: Norwegian news in easy/plain language ("lettlest") —
+            // good for kids and language learners. /rss/ 302-redirects to the
+            // query URL, so we target that directly.
+            title: "Klar Tale",
+            url: "/feed-klartale/?lab_viewport=rss",
+          },
         ],
         showSourceTitle: true,
         showPublishDate: true,
-        rotateInterval: 10000
-      }
-    }
-  ]
+        rotateInterval: 10000,
+      },
+    },
+  ],
 };
 
 export default config;

@@ -1,6 +1,6 @@
 /*
  * Styling adapted from MagicMirror²'s main.css plus the user's custom.css:
- * dark background, Roboto Condensed typography, absolutely-positioned regions,
+ * dark background, Nunito typography, absolutely-positioned regions,
  * the dimmed/normal/bright + size utility classes, a full-screen background
  * slideshow behind everything, and white text for readability over photos.
  */
@@ -9,7 +9,7 @@
   --color-text: #dcdcdc;
   --color-text-dimmed: #aaa;
   --color-text-bright: #fff;
-  --font-primary: "Roboto Condensed", "Roboto", sans-serif;
+  --font-primary: "Nunito", sans-serif;
   --font-size: 20px;
   --gap-body: 60px;
 }
