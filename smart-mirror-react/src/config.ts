@@ -44,15 +44,19 @@ const config: AppConfig = {
       },
     },
     {
+      // Forecast and the 24-hour table share one slot, cross-fading between
+      // each other (header included) so they don't stack vertically.
       module: "weather",
       position: "top_left",
-      header: "Bergen, Nordbøveien 10 🇳🇴",
       config: {
-        type: "forecast",
         lang: "nb",
-        maxNumberOfDays: 14,
         lat: 60.3553,
         lon: 5.2178,
+        rotateInterval: 12000,
+        views: [
+          { type: "forecast", header: "Bergen, Nordbøveien 10 🇳🇴", maxNumberOfDays: 14 },
+          { type: "hourly", header: "Neste 24 timer ⏱️", maxNumberOfHours: 24 },
+        ],
       },
     },
 
@@ -81,13 +85,15 @@ const config: AppConfig = {
     {
       module: "weather",
       position: "top_right",
-      header: "Wuniu, Wenzhou 温州 🇨🇳",
       config: {
-        type: "forecast",
         lang: "zh-cn",
-        maxNumberOfDays: 14,
         lat: 28.0387,
         lon: 120.7914,
+        rotateInterval: 12000,
+        views: [
+          { type: "forecast", header: "Wuniu, Wenzhou 温州 🇨🇳", maxNumberOfDays: 14 },
+          { type: "hourly", header: "未来 24 小时 ⏱️", maxNumberOfHours: 24 },
+        ],
       },
     },
 

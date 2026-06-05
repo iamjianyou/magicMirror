@@ -69,8 +69,22 @@ export interface CountdownConfig {
   finishedText?: string;
 }
 
+export type WeatherViewType = "current" | "forecast" | "hourly";
+
+/** A single rotating view within a weather module (see WeatherConfig.views). */
+export interface WeatherView {
+  type: WeatherViewType;
+  /** Header shown above this view while it is on screen. */
+  header?: string;
+  /** Number of forecast days for type "forecast" (overrides the module default). */
+  maxNumberOfDays?: number;
+  /** Number of upcoming hours for type "hourly" (overrides the module default). */
+  maxNumberOfHours?: number;
+}
+
 export interface WeatherConfig {
-  type: "current" | "forecast";
+  /** Single-view render mode. Ignored when `views` is set. */
+  type?: WeatherViewType;
   lat: number;
   lon: number;
   locationName?: string;
@@ -80,6 +94,17 @@ export interface WeatherConfig {
   updateInterval?: number;
   /** Number of forecast days for type "forecast". */
   maxNumberOfDays?: number;
+  /** Number of upcoming hours for type "hourly" (default 24). */
+  maxNumberOfHours?: number;
+  /**
+   * Rotate through several views in one slot, cross-fading between them (and
+   * swapping the per-view header). When set, `type` is ignored. Lets e.g. the
+   * daily forecast and the 24-hour table share the same space instead of
+   * stacking vertically.
+   */
+  views?: WeatherView[];
+  /** How long each view stays on screen before fading to the next (ms, default 12000). */
+  rotateInterval?: number;
   /** Fade the later forecast rows toward transparent (MagicMirror² default: true). */
   fade?: boolean;
   /** Fraction of the list before fading begins (MagicMirror² default: 0.25). */

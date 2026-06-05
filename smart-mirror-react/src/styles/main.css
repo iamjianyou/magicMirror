@@ -371,22 +371,75 @@ header {
   padding: 0 4px;
   white-space: nowrap;
 }
-.weather.forecast .forecast-icon {
+.weather.forecast .forecast-icon,
+.weather.hourly .forecast-icon {
   text-align: center;
   font-size: 20px;
+}
+
+.weather.hourly {
+  margin-top: 6px;
+  border-spacing: 8px 1px;
+  border-collapse: separate;
+}
+.weather.hourly td {
+  padding: 0 4px;
+  white-space: nowrap;
+}
+.weather.hourly .precip {
+  font-size: 0.85em;
+}
+.weather.hourly .precip .label-icon {
+  margin-right: 1px;
+}
+
+/* Rotating weather: two views overlap and crossfade so the slot is never blank.
+   The incoming layer is in normal flow (sets the height); the outgoing one is
+   absolutely positioned on top and fades out at the same time. */
+.weather-rotator.crossfade {
+  position: relative;
+}
+.weather-rotator.crossfade .weather-layer.outgoing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: weather-fade-out 1.5s ease-in-out forwards;
+  pointer-events: none;
+}
+.weather-rotator.crossfade .weather-layer.incoming {
+  animation: weather-fade-in 1.5s ease-in-out;
+}
+@keyframes weather-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes weather-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Right column (China) aligns to the right; left column (Norway) to the left. */
 .region.right .current-main {
   justify-content: flex-end;
 }
-.region.right .weather.forecast {
+.region.right .weather.forecast,
+.region.right .weather.hourly {
   margin-left: auto;
 }
 .region.left .current-main {
   justify-content: flex-start;
 }
-.region.left .weather.forecast {
+.region.left .weather.forecast,
+.region.left .weather.hourly {
   margin-right: auto;
 }
 
