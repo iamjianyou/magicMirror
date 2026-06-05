@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import moment from "../lib/moment";
 import type { WeatherConfig, WeatherView } from "../types";
 import { fetchWeather, weatherIcon, type WeatherData } from "../lib/weather";
@@ -118,8 +118,10 @@ export default function Weather({ config, language, units }: Props) {
   // sizes to it); the outgoing layer is absolutely positioned on top, fading
   // out simultaneously. Remounting via `key` restarts each layer's animation.
   const prevView = prev != null ? views[prev] : null;
+  // Drive the CSS fade animation off the JS constant so the two never drift.
+  const fadeStyle = { "--weather-fade-speed": `${FADE_SPEED}ms` } as CSSProperties;
   return (
-    <div className="weather-rotator crossfade">
+    <div className="weather-rotator crossfade" style={fadeStyle}>
       {prevView && (
         <div className="weather-layer outgoing" key={`out-${prev}`}>
           {prevView.header && <header>{prevView.header}</header>}

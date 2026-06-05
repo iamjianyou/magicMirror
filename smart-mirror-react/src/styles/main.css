@@ -404,11 +404,12 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  animation: weather-fade-out 1.5s ease-in-out forwards;
+  /* Duration comes from --weather-fade-speed, set in Weather.tsx (FADE_SPEED). */
+  animation: weather-fade-out var(--weather-fade-speed, 1.5s) ease-in-out forwards;
   pointer-events: none;
 }
 .weather-rotator.crossfade .weather-layer.incoming {
-  animation: weather-fade-in 1.5s ease-in-out;
+  animation: weather-fade-in var(--weather-fade-speed, 1.5s) ease-in-out;
 }
 @keyframes weather-fade-in {
   from {
